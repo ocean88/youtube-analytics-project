@@ -1,14 +1,15 @@
 import json
 import os
-
+from dotenv import load_dotenv
 # необходимо установить через: pip install google-api-python-client
 from googleapiclient.discovery import build
-
 import isodate
 
 
+load_dotenv()
+
 # YT_API_KEY скопирован из гугла и вставлен в переменные окружения
-api_key: str = os.getenv('YT_API_KEY')
+api_key = os.environ.get('API_KEY')
 
 # создать специальный объект для работы с API
 youtube = build('youtube', 'v3', developerKey=api_key)
@@ -37,7 +38,7 @@ docs: https://developers.google.com/youtube/v3/docs/playlists/list
 '''
 playlists = youtube.playlists().list(channelId=channel_id,
                                      part='contentDetails,snippet',
-                                     maxResults=50,
+                                     maxResults=5,
                                      ).execute()
 # printj(playlists)
 for playlist in playlists['items']:
@@ -56,7 +57,7 @@ https://www.youtube.com/playlist?list=PLH-XmS0lSi_zdhYvcwUfv0N88LQRt6UZn
 playlist_id = 'PLH-XmS0lSi_zdhYvcwUfv0N88LQRt6UZn'
 playlist_videos = youtube.playlistItems().list(playlistId=playlist_id,
                                                part='contentDetails',
-                                               maxResults=50,
+                                               maxResults=5,
                                                ).execute()
 # printj(playlist_videos)
 
