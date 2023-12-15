@@ -25,11 +25,5 @@ class Channel:
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
-        playlists = youtube.playlists().list(channelId=self.channel_id,
-                                             part='contentDetails,snippet',
-                                             maxResults=1,
-                                             ).execute()
-        # printj(playlists)
-        for playlist in playlists['items']:
-            print(playlist)
+        print(json.dumps(channel, indent=2, ensure_ascii=False))
 
