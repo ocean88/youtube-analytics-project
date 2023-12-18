@@ -34,7 +34,7 @@ class Channel:
 
     def _fetch_channel_info(self) -> None:
         """Заполняет атрибуты экземпляра данными о канале."""
-        channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
+        channel = youtube.channels().list(id=self._channel_id, part='snippet,statistics').execute()
         channel_info = channel['items'][0]['snippet']
         statistics = channel['items'][0]['statistics']
 
@@ -43,7 +43,7 @@ class Channel:
         self.video_count = statistics['videoCount']
         self.view_count = statistics['viewCount']
         self.subscriber_count = statistics['subscriberCount']
-        self.url = f"https://www.youtube.com/channel/{self.channel_id}"
+        self.url = f"https://www.youtube.com/channel/{self._channel_id}"
 
     @classmethod
     def get_service(cls):
@@ -53,7 +53,7 @@ class Channel:
     def to_json(self, filename: str) -> None:
         """Сохраняет значения атрибутов экземпляра Channel в файл."""
         data = {
-            'channel_id': self.channel_id,
+            'channel_id': self._channel_id,
             'title': self.title,
             'description': self.description,
             'video_count': self.video_count,
@@ -68,7 +68,7 @@ class Channel:
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         channel_info = {
-            'Channel ID': self.channel_id,
+            'Channel ID': self._channel_id,
             'Title': self.title,
             'Description': self.description,
             'Video Count': self.video_count,
