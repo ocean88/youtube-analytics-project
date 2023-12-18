@@ -18,7 +18,7 @@ class Channel:
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
-        self.channel_id = channel_id
+        self._channel_id = channel_id
         self.title = None
         self.description = None
         self.video_count = None
@@ -26,6 +26,11 @@ class Channel:
         self.subscriber_count = None
         self.url = None
         self._fetch_channel_info()
+
+    @property
+    def channel_id(self):
+        return self._channel_id
+
 
     def _fetch_channel_info(self) -> None:
         """Заполняет атрибуты экземпляра данными о канале."""
@@ -57,8 +62,8 @@ class Channel:
             'url': self.url
         }
 
-        with open(filename, 'w') as file:
-            json.dump(data, file, indent=2)
+        with open(filename, 'w', encoding="utf-8") as file:
+            json.dump(data, file, indent=2, ensure_ascii=False)
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
