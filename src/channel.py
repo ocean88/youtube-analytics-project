@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
 
-
 load_dotenv()
 
 # YT_API_KEY скопирован из гугла и вставлен в переменные окружения
@@ -27,10 +26,47 @@ class Channel:
         self.url = None
         self._fetch_channel_info()
 
+    def __str__(self):
+        """Возвращает название и ссылку на канал"""
+        return f"{self.title} ({self.url})"
+
+    def __add__(self, other):
+        """Складывает два канала по количеству подписчиков"""
+        return self.subscriber_count + other.subscriber_count
+
+    def __sub__(self, other):
+        """Вычитает два канала по количеству подписчиков"""
+        return self.subscriber_count - other.subscriber_count
+
+    def __lt__(self, other):
+        """Сравнивает два канала по количеству подписчиков (меньше)"""
+        return self.subscriber_count < other.subscriber_count
+
+    def __le__(self, other):
+        """Сравнивает два канала по количеству подписчиков (меньше или равно)"""
+        return self.subscriber_count <= other.subscriber_count
+
+    def __eq__(self, other):
+        """Сравнивает два канала по количеству подписчиков (равно)"""
+        return self.subscriber_count == other.subscriber_count
+
+    def __gt__(self, other):
+        """Сравнивает два канала по количеству подписчиков (больше)"""
+        return self.subscriber_count > other.subscriber_count
+
+    def __ge__(self, other):
+        """Сравнивает два канала по количеству подписчиков (больше или равно)"""
+        return self.subscriber_count >= other.subscriber_count
+
+    def __add__(self, other):
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
     @property
     def channel_id(self):
         return self._channel_id
-
 
     def _fetch_channel_info(self) -> None:
         """Заполняет атрибуты экземпляра данными о канале."""
