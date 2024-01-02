@@ -1,9 +1,9 @@
 import datetime
 
-from src.playlist import PlayList
+from src.playlist import Playlist
 
 if __name__ == '__main__':
-    pl = PlayList('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')
+    pl = Playlist('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')
     assert pl.title == "Moscow Python Meetup №81"
     assert pl.url == "https://www.youtube.com/playlist?list=PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw"
 
